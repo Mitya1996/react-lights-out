@@ -77,7 +77,10 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   // if the game is won, just show a winning msg & render nothing else
 
   // TODO
-
+  if (_.flatten(board).every((isLit) => isLit === false)) {
+    alert("All lights out! Game over.");
+    return null;
+  }
   // make table board
 
   // TODO
