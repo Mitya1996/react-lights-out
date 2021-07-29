@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
 import "./Board.css";
+const _ = require("lodash");
 
 /** Game board of Lights out.
  *
@@ -49,7 +50,6 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   }
 
   function flipCellsAround(coord) {
-    console.log(coord);
     setBoard((oldBoard) => {
       const [y, x] = coord.split("-").map(Number);
 
@@ -62,10 +62,15 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-
+      let boardCopy = _.cloneDeep(oldBoard);
       // TODO: in the copy, flip this cell and the cells around it
-
+      flipCell(y, x, boardCopy);
+      flipCell(y, x - 1, boardCopy);
+      flipCell(y, x + 1, boardCopy);
+      flipCell(y - 1, x, boardCopy);
+      flipCell(y + 1, x, boardCopy);
       // TODO: return the copy
+      return boardCopy;
     });
   }
 
